@@ -8,10 +8,18 @@ import { FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
+import Button from 'react-bootstrap/Button';
 
 const Header = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOutUser } = useContext(AuthContext);
     console.log(user)
+
+    const handleLogout = () => {
+        logOutUser()
+            .then(() => { })
+            .catch(error => console.error(error));
+
+    }
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -35,7 +43,19 @@ const Header = () => {
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            <Nav.Link href="#deets">{user?.displayName}</Nav.Link>
+                            <Nav.Link href="#deets">
+                                {user?.uid ?
+                                    <>
+                                        <span>{user?.displayName}</span>
+                                        <Button onClick={handleLogout} variant='light'>LogOut</Button>
+                                    </>
+                                    : <>
+                                        <Link to='/login'>Log In</Link>
+                                        <Link to='/register'>Register</Link>
+                                    </>
+
+                                }
+                            </Nav.Link>
                             <Nav.Link eventKey={2} href="#memes">
                                 {user?.photoURL ?
                                     <Image
