@@ -43,7 +43,7 @@ const Header = () => {
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            <Nav.Link href="#deets">
+                            <>
                                 {user?.uid ?
                                     <>
                                         <span>{user?.displayName}</span>
@@ -55,8 +55,8 @@ const Header = () => {
                                     </>
 
                                 }
-                            </Nav.Link>
-                            <Nav.Link eventKey={2} href="#memes">
+                            </>
+                            <Link to="/profile">
                                 {user?.photoURL ?
                                     <Image
                                         style={{ height: '30px' }} roundedCircle
@@ -64,7 +64,7 @@ const Header = () => {
                                     ></Image>
                                     : <FaUserAlt></FaUserAlt>
                                 }
-                            </Nav.Link>
+                            </Link>
                         </Nav>
 
                         <div className='d-lg-none'>
