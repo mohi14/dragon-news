@@ -14,7 +14,7 @@ const LogIn = () => {
 
     const [error, setError] = useState('');
 
-    const { logInUser } = useContext(AuthContext);
+    const { logInUser, setLoading } = useContext(AuthContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -39,7 +39,10 @@ const LogIn = () => {
             .catch(error => {
                 console.error(error);
                 setError(error.message);
-            });
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }
     return (
         <Form onSubmit={handleSubmit}>
